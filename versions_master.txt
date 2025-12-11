@@ -1,2 +1,0 @@
-VLC=3.0.20|x64:https://get.videolan.org/vlc/3.0.20/win64/vlc-3.0.20-win64.zip|x86:https://get.videolan.org/vlc/3.0.20/win32/vlc-3.0.20-win32.zip
-WinRAR=6.24|generic:https://www.rarlab.com/rar/winrar-x64-624.exe
