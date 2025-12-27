@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyWinGet - Modern Package Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Main Container -->
+    <div class="app-container">
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-title">
+                    <span class="logo-icon">📦</span>
+                    <h1>EasyWinGet</h1>
+                </div>
+                <div class="version-badge" id="app-version">v3.1.0</div>
+            </div>
+            <div class="sidebar-separator"></div>
+
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-view="search">
+                    <span class="icon">🔍</span>
+                    <span>Search</span>
+                </button>
+                <button class="nav-btn" data-view="installed">
+                    <span class="icon">💻</span>
+                    <span>Installed</span>
+                </button>
+                <button class="nav-btn" data-view="updates">
+                    <span class="icon">⬆️</span>
+                    <span>Updates</span>
+                    <span class="badge" id="update-badge" style="display:none;">0</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="creator">
+                    Created with <span class="heart">❤️</span> by Jyoti Karmakar
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+
+            <!-- Search View -->
+            <div id="search-view" class="view active">
+                <header class="view-header">
+                    <h2>Search Applications</h2>
+                    <p id="app-description">Find and install software from the WinGet catalog</p>
+                </header>
+
+                <div id="search-welcome" class="search-welcome">
+                    <div class="welcome-icon">🔍</div>
+                    <h3>Discover Software</h3>
+                    <p>Search thousands of applications available through WinGet</p>
+                    <div class="welcome-features">
+                        <span>✨ Browse packages</span>
+                        <span>⚡ Quick install</span>
+                        <span>💾 Download installers</span>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <div class="input-with-clear">
+                        <input type="text" id="search-input"
+                            placeholder="Search for apps (e.g., Chrome, VSCode, Git)..." autocomplete="off">
+                        <button id="clear-search" class="clear-btn" style="display:none;" title="Clear">×</button>
+                    </div>
+                    <button id="search-btn" class="btn btn-primary">Search</button>
+                </div>
+
+                <div id="search-loading" class="loading-state" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Searching...</p>
+                </div>
+
+                <div id="search-results" class="card-grid"></div>
+                <div id="search-empty" class="empty-state" style="display:none;">
+                    <div class="empty-icon">🔍</div>
+                    <h3>No results found</h3>
+                    <p>Try a different search term</p>
+                </div>
+            </div>
+
+            <!-- Installed View -->
+            <div id="installed-view" class="view" style="display:none;">
+                <header class="view-header">
+                    <div>
+                        <h2>Installed Applications</h2>
+                        <p>Manage your installed software</p>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <select id="sort-installed" class="sort-select">
+                            <option value="name">Sort by Name</option>
+                            <option value="name-desc">Sort by Name (Z-A)</option>
+                        </select>
+                        <button id="refresh-installed" class="btn-icon" title="Refresh">
+                            <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="search-container" style="margin-bottom:24px;">
+                    <div class="input-with-clear">
+                        <input type="text" id="filter-installed" placeholder="Filter installed apps..."
+                            autocomplete="off">
+                        <button id="clear-filter-installed" class="clear-btn" style="display:none;"
+                            title="Clear">×</button>
+                    </div>
+                    <button id="filter-installed-btn" class="btn btn-secondary">Filter</button>
+                </div>
+
+                <div id="installed-list" class="list-container"></div>
+            </div>
+
+            <!-- Updates View -->
+            <div id="updates-view" class="view" style="display:none;">
+                <header class="view-header">
+                    <div>
+                        <h2>Available Updates</h2>
+                        <p>Keep your software up to date</p>
+                    </div>
+                    <button id="refresh-updates" class="btn-icon" title="Check for updates">
+                        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                    </button>
+                </header>
+
+                <div class="search-container" style="margin-bottom:24px;">
+                    <div class="input-with-clear">
+                        <input type="text" id="filter-updates" placeholder="Filter updates..." autocomplete="off">
+                        <button id="clear-filter-updates" class="clear-btn" style="display:none;"
+                            title="Clear">×</button>
+                    </div>
+                    <button id="filter-updates-btn" class="btn btn-secondary">Filter</button>
+                </div>
+
+                <div id="updates-grid" class="card-grid"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Custom Confirm Dialog -->
+    <div id="confirm-dialog" class="confirm-overlay" style="display:none;">
+        <div class="confirm-box">
+            <div class="confirm-icon">⚠️</div>
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-message">Are you sure?</p>
+            <div class="confirm-actions">
+                <button id="confirm-cancel" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-ok" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div id="modal-backdrop" class="modal-backdrop" style="display:none;"></div>
+
+    <!-- Task Modal -->
+    <div id="task-modal" class="task-modal" style="display:none;">
+        <div class="modal-header">
+            <h3 id="modal-title">Task Progress</h3>
+            <div class="modal-controls">
+                <button id="minimize-modal" class="modal-btn" title="Minimize">−</button>
+                <button id="close-modal" class="modal-btn" title="Close">×</button>
+            </div>
+        </div>
+        <div class="modal-progress">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <div id="progress-text" class="progress-text">Starting...</div>
+        </div>
+        <div id="modal-output" class="modal-output"></div>
+    </div>
+
+    <!-- Minimized Tasks Tray -->
+    <div id="minimized-tray" class="minimized-tray" style="display:none;"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display:none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
