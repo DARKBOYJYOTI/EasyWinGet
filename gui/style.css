@@ -181,7 +181,10 @@ body {
 /* ===== MAIN CONTENT ===== */
 .content {
     flex: 1;
+    flex: 1;
     overflow-y: auto;
+    scrollbar-gutter: stable;
+    /* Reserves space for scrollbar to prevent layout shift */
     padding: 32px;
 }
 
@@ -338,8 +341,15 @@ body {
 }
 
 .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 40px;
+    height: 100%;
+    width: 100%;
+    grid-column: 1 / -1;
     color: var(--text-secondary);
 }
 
@@ -486,8 +496,15 @@ body {
 
 /* ===== EMPTY STATE ===== */
 .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 60px 20px;
+    padding: 0 20px;
+    height: 100%;
+    width: 100%;
+    grid-column: 1 / -1;
 }
 
 .empty-state .empty-icon {
@@ -546,6 +563,10 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
 }
 
 /* ===== TOAST ===== */
@@ -911,3 +932,5 @@ body.modal-open {
         left: 24px;
     }
 }
+
+/* Suggestions List */

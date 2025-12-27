@@ -20,6 +20,8 @@ $DownloadDir = Join-Path $ScriptDir "Downloads"
 $DataDir = Join-Path $ScriptDir "data"
 $InstalledCache = Join-Path $DataDir "installed.json"
 $UpdatesCache = Join-Path $DataDir "updates.json"
+$IgnoredCache = Join-Path $DataDir "ignored.json"
+$DownloadsCache = Join-Path $DataDir "downloads.json"
 
 # Ensure Dirs
 if (-not (Test-Path $DownloadDir)) { New-Item -ItemType Directory -Path $DownloadDir | Out-Null }
@@ -175,21 +177,105 @@ try {
                 Save-AppCache $InstalledCache $apps
                 Send-Response $ctx (ConvertTo-JsonResponse @{ apps = $apps })
             }
+
+
             elseif ($url -eq "/api/updates") {
                 $cached = Get-AppCache $UpdatesCache
+                
+                # Load ignored list
+                $ignored = Get-AppCache $IgnoredCache
+                if ($null -eq $ignored) { $ignored = @() }
+                $ignoredIds = $ignored.id
+
                 if ($cached) {
-                    Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $cached })
+                    # Filter out ignored
+                    $filtered = $cached | Where-Object { $ignoredIds -notcontains $_.id }
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $filtered })
                 }
                 else {
                     $updates = Invoke-WingetCommand "upgrade --include-unknown --accept-source-agreements" $true
                     Save-AppCache $UpdatesCache $updates
-                    Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $updates })
+                    
+                    # Filter out ignored
+                    $filtered = $updates | Where-Object { $ignoredIds -notcontains $_.id }
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $filtered })
                 }
             }
             elseif ($url -eq "/api/refresh-updates") {
                 $updates = Invoke-WingetCommand "upgrade --include-unknown --accept-source-agreements" $true
                 Save-AppCache $UpdatesCache $updates
-                Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $updates })
+                
+                # Load ignored list
+                $ignored = Get-AppCache $IgnoredCache
+                if ($null -eq $ignored) { $ignored = @() }
+                $ignoredIds = $ignored.id
+                
+                # Filter out ignored
+                $filtered = $updates | Where-Object { $ignoredIds -notcontains $_.id }
+                
+                Send-Response $ctx (ConvertTo-JsonResponse @{ updates = $filtered })
+            }
+            elseif ($url -eq "/api/ignored") {
+                $ignored = Get-AppCache $IgnoredCache
+                if ($null -eq $ignored) { $ignored = @() }
+                # Ensure it's an array
+                if ($ignored -isnot [array]) {
+                    $ignored = @($ignored)
+                }
+                Send-Response $ctx (ConvertTo-JsonResponse @{ apps = $ignored })
+            }
+            elseif ($url.StartsWith("/api/ignore")) {
+                $id = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["id"]
+                $name = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["name"]
+                
+                if ($id) {
+                    $ignored = Get-AppCache $IgnoredCache
+                    if ($null -eq $ignored) { 
+                        $ignored = @() 
+                    }
+                    # Ensure it's an array (in case cache has single object)
+                    if ($ignored -isnot [array]) {
+                        $ignored = @($ignored)
+                    }
+                    
+                    # Check if already ignored to avoid duplicates
+                    if (-not ($ignored.id -contains $id)) {
+                        $ignored = @($ignored) + @{ id = $id; name = $name }
+                        Save-AppCache $IgnoredCache $ignored
+                    }
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Ignored $id" })
+                }
+                else {
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No ID provided" } $false)
+                }
+            }
+            elseif ($url.StartsWith("/api/unignore")) {
+                $id = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["id"]
+                
+                if ($id) {
+                    $ignored = Get-AppCache $IgnoredCache
+                    if ($ignored) {
+                        # Ensure it's an array
+                        if ($ignored -isnot [array]) {
+                            $ignored = @($ignored)
+                        }
+                        $ignored = $ignored | Where-Object { $_.id -ne $id }
+                        Save-AppCache $IgnoredCache $ignored 
+                    }
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Unignored $id" })
+                }
+                else {
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No ID provided" } $false)
+                }
+            }
+            elseif ($url -eq "/api/ignored") {
+                $ignored = Get-AppCache $IgnoredCache
+                if ($null -eq $ignored) { $ignored = @() }
+                # Ensure it's an array
+                if ($ignored -isnot [array]) {
+                    $ignored = @($ignored)
+                }
+                Send-Response $ctx (ConvertTo-JsonResponse @{ apps = $ignored })
             }
             elseif ($url.StartsWith("/api/search")) {
                 $q = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["q"]
@@ -219,6 +305,68 @@ try {
                     Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No ID provided" } $false)
                 }
             }
+            # ==========================================
+            # DOWNLOADED FILES API
+            # ==========================================
+            elseif ($url -eq "/api/downloaded") {
+                $extensions = @(".exe", ".msi", ".zip", ".7z", ".tar", ".rar", ".iso", ".gz")
+                $files = @(Get-ChildItem -Path $DownloadDir -File | Where-Object { $extensions -contains $_.Extension } | Select-Object Name, Length, LastWriteTime)
+                
+                Write-Host "Found $($files.Count) downloaded files" -ForegroundColor Cyan
+                if ($files.Count -gt 0) {
+                    $files | ForEach-Object { Write-Host " - $($_.Name)" -ForegroundColor Gray }
+                }
+
+                Save-AppCache $DownloadsCache $files
+                Send-Response $ctx (ConvertTo-JsonResponse @{ files = $files })
+            }
+            elseif ($url.StartsWith("/api/downloaded/delete")) {
+                $file = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["file"]
+                if ($file) {
+                    $path = Join-Path $DownloadDir $file
+                    if (Test-Path $path) {
+                        try {
+                            Remove-Item $path -Force
+                            # Re-cache immediately to ensure counts are accurate
+                            $extensions = @(".exe", ".msi", ".zip", ".7z", ".tar", ".rar", ".iso", ".gz")
+                            $files = @(Get-ChildItem -Path $DownloadDir -File | Where-Object { $extensions -contains $_.Extension } | Select-Object Name, Length, LastWriteTime)
+                            Save-AppCache $DownloadsCache $files
+                            
+                            Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Deleted $file" })
+                        }
+                        catch {
+                            Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Delete failed: $_" } $false)
+                        }
+                    }
+                    else {
+                        Send-Response $ctx (ConvertTo-JsonResponse @{ message = "File not found" } $false) 404
+                    }
+                }
+                else {
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No file provided" } $false)
+                }
+            }
+            elseif ($url.StartsWith("/api/downloaded/run")) {
+                $file = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["file"]
+                if ($file) {
+                    $path = Join-Path $DownloadDir $file
+                    if (Test-Path $path) {
+                        try {
+                            Invoke-Item $path
+                            Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Launched $file" })
+                        }
+                        catch {
+                            Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Launch failed: $_" } $false)
+                        }
+                    }
+                    else {
+                        Send-Response $ctx (ConvertTo-JsonResponse @{ message = "File not found" } $false) 404
+                    }
+                }
+                else {
+                    Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No file provided" } $false)
+                }
+            }
             elseif ($url.StartsWith("/api/download")) {
                 $id = [System.Web.HttpUtility]::ParseQueryString($req.Url.Query)["id"]
                 if ($id) {
@@ -227,6 +375,10 @@ try {
                         $cmd = "winget download `"$id`" --download-directory `"$DownloadDir`" --accept-source-agreements"
                         $output = cmd /c $cmd 2>&1
                         Write-Host $output
+                        
+                        # CLEANUP: Remove annoying manifest files (YAML)
+                        Get-ChildItem -Path $DownloadDir -Filter "*.yaml" | Remove-Item -Force -ErrorAction SilentlyContinue
+                        
                         Send-Response $ctx (ConvertTo-JsonResponse @{ message = "Downloaded $id" })
                     }
                     catch {
@@ -275,6 +427,8 @@ try {
                     Send-Response $ctx (ConvertTo-JsonResponse @{ message = "No ID provided" } $false)
                 }
             }
+
+
             # ... (Jobs/Install/Uninstall - Simplified for this fix, assuming async logic from previous is fine but let's stick to core data first)
             elseif ($url -match "\.(html|css|js|png|ico)$" -or $url -eq "/") {
                 $f = if ($url -eq "/") { "index.html" } else { $url.TrimStart('/') }

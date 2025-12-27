@@ -90,15 +90,15 @@ function ConvertFrom-WinGetOutput {
             }
             else {
                 # Installed/Search: Need smart detection of package ID
-                # Package IDs have dots or dashes: VideoLAN.VLC, Google.Chrome, etc.
-                # Pattern: Capture everything before an ID-like pattern, then ID, then version
+                # Strategy:
+                # 1. Name: Lazy match until the last "gap" before ID.
+                # 2. ID: Can be GUID {..}, or word.word, or just word. Can have dots, dashes, underscores.
+                # 3. Version: safely assume it starts with a number or 'v'.
                 
-                # Try to find package ID pattern (word.word or word-word)
-                if ($trimmed -match '^(.+?)\s+([\w]+(\.[\w]+)+|[\w]+(-[\w]+)+)\s+(\S+)') {
-                    # This matches: Name (any text) PackageID (with dots/dashes) Version
+                if ($trimmed -match '^(.+?)\s+([a-zA-Z0-9\.\-\{\}_]+)\s+([vV]?\d[^\s]*)') {
                     $n = $Matches[1].Trim()
                     $i = $Matches[2].Trim()
-                    $v = $Matches[5].Trim()
+                    $v = $Matches[3].Trim()
                     
                     # Skip headers
                     if ($n -notmatch "^(Name|Id|Source|Match|---)" -and $i -notmatch "^(Id|Version|Match)") {

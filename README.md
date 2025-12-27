@@ -1,14 +1,14 @@
 <div align="center">
 
 # 📦 EasyWinGet
-### The Modern, Elegant GUI for Windows Package Manager
+### The Ultimate Modern GUI for Windows Package Manager
 
-![Version](https://img.shields.io/badge/version-3.2.0-blue?style=for-the-badge&logo=windows)
+![Version](https://img.shields.io/badge/version-3.5.0-blue?style=for-the-badge&logo=windows)
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=for-the-badge&logo=windows)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 ![PowerShell](https://img.shields.io/badge/backend-PowerShell-5391FE?style=for-the-badge&logo=powershell)
 
-**EasyWinGet** is a stunning, web-based graphical interface for the Windows Package Manager (WinGet). Experience the power of the command line with the elegance of a modern web application.
+**EasyWinGet** redefines how you manage software on Windows. By combining the raw power of **WinGet** with a stunning, **Glassmorphism-inspired web interface**, it delivers a premium experience that is both beautiful and blazing fast.
 
 [Fast] • [Beautiful] • [Powerful] • [Open Source]
 
@@ -16,81 +16,84 @@
 
 ---
 
-## ✨ Features
+## ✨ Why EasyWinGet?
 
-### 🎨 Modern User Interface
-- **Glassmorphism Design**: Sleek, dark-themed UI with translucent elements.
-- **Responsive**: Perfectly adapts to any screen size.
-- **Animations**: Smooth transitions, hover effects, and loading states.
-- **Interactive Feedback**: Toast notifications and progress tracking.
+EasyWinGet isn't just a wrapper; it's a complete reimagining of the package manager experience.
 
-### 🚀 Powerful Management
-- **Smart Search**: Instantly find thousands of apps locally and from the WinGet catalog.
-- **One-Click Actions**: Install, Update, and Uninstall applications with a single click.
-- **Bulk Operations**: Update all your outdated apps effortlessly.
-- **Sort & Filter**: Organize your installed apps A-Z or Z-A with dynamic filtering.
+### 🎨 Stunning Visuals ("Jhakks" Design)
+- **Glassmorphism UI**: A premium, translucent dark theme that looks modern on any desktop.
+- **Fluid Animations**: Every interaction, from hovering to loading, is smooth and responsive.
+- **Context-Aware Buttons**: Smart buttons that know if an app is installed, needs an update, or is ready to download.
 
-### ⚡ Performance
-- **Local Caching**: Blazing fast load times using JSON-based caching.
-- **Optimized Backend**: Lightweight PowerShell server (no Node.js/Python required).
-- **Asynchronous**: Non-blocking operations ensure the UI never freezes.
+### 🚀 Next-Gen Features
+- **📦 Smart App Management**: Install, Update, and Uninstall thousands of apps with one click.
+- **🛡️ Ignore Updates**: Don't want to update a specific app? Simply **Ignore** it, and it vanishes from your update list. Manage your ignored apps via a dedicated modal.
+- **📂 Download Manager**: Download installers directly for offline use. Track, Run, or Delete them instantly from the "Downloaded" tab.
+- **🔍 Intelligent Search**: Finds apps locally and from the Microsoft Store/WinGet repository instantly.
+- **⚡ Zero-Lag Performance**: Uses advanced **JSON Caching** and **Multi-threaded Background Loading** to ensure the UI never freezes, even with huge libraries.
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Tech Architecture
 
-This project uses a unique, lightweight architecture:
+Built with a philosophy of **"Zero Dependencies"** for the end-user. No Node.js, no Python, no bloated runtimes.
 
-| Component | Technology | Description |
-|-----------|------------|-------------|
-| **Frontend** | HTML5, CSS3, JavaScript | Pure vanilla stack. No frameworks, no build steps. |
-| **Backend** | PowerShell Core | custom HTTP server implementation. |
-| **Database** | JSON | File-based caching for high performance. |
-| **Core** | WinGet CLI | Microsoft's official Windows Package Manager. |
+| Component | Technology | Why? |
+|-----------|------------|------|
+| **Frontend** | HTML5, CSS3, Vanilla JS | Maximum speed, instant startup, no compile step. |
+| **Backend** | PowerShell Core | Native Windows integration, deeply hooks into WinGet. |
+| **Data Layer** | JSON Files | File-based caching for persistence without database overhead. |
+| **Executor** | WinGet CLI | Leveraging Microsoft's official reliable package manager. |
 
 ---
 
 ## 📂 Project Structure
 
+A clean, modular architecture makes contributing easy:
+
 ```text
 EasyWinGet/
-├── 📂 data/                # Application cache storage
-│   ├── installed.json      # Cached list of installed apps
-│   └── updates.json        # Cached list of available updates
-├── 📂 gui/                 # Frontend Source Code
-│   ├── index.html          # Main application interface
-│   ├── style.css           # Premium styling & animations
-│   └── script.js           # UI Logic & API communication
-├── 📂 modules/             # Backend Modules
-│   └── parser.ps1          # Advanced WinGet output parser
-├── 📂 Downloads/           # Default download directory
-├── server.ps1              # Core PowerShell HTTP Server
-├── start-gui.bat           # One-click launcher script
-└── version.json            # Version control metadata
+├── 📂 data/                # Intelligent JSON Cache Layer
+│   ├── installed.json      # Snapshot of current system
+│   ├── updates.json        # Pending approvals
+│   ├── ignored.json        # User-defined exclusion list
+│   └── downloads.json      # Tracked offline installers
+├── 📂 gui/                 # The "Jhakks" Frontend
+│   ├── index.html          # Semantic HTML5 Structure
+│   ├── style.css           # 1000+ lines of hand-crafted CSS variables & animations
+│   └── script.js           # Async logic, API layer, & DOM manipulation
+├── 📂 modules/             # Backend Logic
+│   └── parser.ps1          # Regex-based output parser
+├── 📂 Downloads/           # Dedicated folder for downloaded installers
+├── server.ps1              # The Brain: Custom HTTP Server implementation
+└── start-gui.bat           # One-click Magic Launcher
 ```
 
 ---
 
 ## 🚀 Getting Started
 
+No installation wizards. No complex setup. Just run and go.
+
 ### Prerequisites
 - **Windows 10/11** (1809 or newer)
-- **App Installer** (WinGet) installed
+- **WinGet** (App Installer) pre-installed (Standard on modern Windows)
 
 ### Installation
-1. Clone the repository:
+1. Clone this repository:
    ```bash
    git clone https://github.com/DARKBOYJYOTI/EasyWinGet.git
    ```
-2. Navigate to the folder:
+2. Enter the directory:
    ```bash
    cd EasyWinGet
    ```
 
 ### Usage
-Simply double-click **`start-gui.bat`**. 
-- This will start the local server.
-- Automatically open your default browser to `http://localhost:8080`.
+Double-click **`start-gui.bat`**.
+- The server starts instantly.
+- Your default browser opens the dashboard automatically.
+- Start managing your apps like a pro!
 
 ---
 
@@ -98,7 +101,7 @@ Simply double-click **`start-gui.bat`**.
 
 <div align="center">
 
-**Created with ❤️ by**
+**Masterminded by**
 
 ### **Jyoti Karmakar**
 

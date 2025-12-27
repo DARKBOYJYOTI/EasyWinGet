@@ -37,6 +37,11 @@
                     <span>Updates</span>
                     <span class="badge" id="update-badge" style="display:none;">0</span>
                 </button>
+                <button class="nav-btn" data-view="downloaded">
+                    <span class="icon">📂</span>
+                    <span>Downloaded</span>
+                    <span class="badge" id="downloaded-badge" style="display:none;">0</span>
+                </button>
             </nav>
 
             <div class="sidebar-footer">
@@ -131,13 +136,17 @@
                         <h2>Available Updates</h2>
                         <p>Keep your software up to date</p>
                     </div>
-                    <button id="refresh-updates" class="btn-icon" title="Check for updates">
-                        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                        </svg>
-                    </button>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button id="view-ignored-btn" class="btn btn-secondary"
+                            style="font-size: 0.8rem; padding: 4px 12px;">Ignored Apps</button>
+                        <button id="refresh-updates" class="btn-icon" title="Check for updates">
+                            <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                        </button>
+                    </div>
                 </header>
 
                 <div class="search-container" style="margin-bottom:24px;">
@@ -150,6 +159,38 @@
                 </div>
 
                 <div id="updates-grid" class="card-grid"></div>
+            </div>
+
+            <!-- Downloaded View -->
+            <div id="view-downloaded" class="view" style="display: none;">
+                <div class="view-header">
+                    <div>
+                        <h2>Downloaded Files</h2>
+                        <p>Manage installers in your Downloads folder</p>
+                    </div>
+                    <button id="refresh-downloaded" class="btn-icon" title="Refresh">
+                        <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="downloaded-list" class="list-container">
+                    <!-- Files will be injected here -->
+                </div>
+
+                <div id="downloaded-empty" class="empty-state" style="display: none;">
+                    <div class="empty-icon">📂</div>
+                    <h3>No downloads found</h3>
+                    <p>Files you download will appear here.</p>
+                </div>
+
+                <div id="downloaded-loading" class="loading-state" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Scanning downloads...</p>
+                </div>
             </div>
 
         </main>
@@ -189,6 +230,26 @@
         <div id="modal-output" class="modal-output"></div>
     </div>
 
+    <!-- Ignored Apps Modal -->
+    <div id="ignored-modal" class="modal-backdrop" style="display:none; z-index: 2000;">
+        <div class="task-modal" style="display:flex; flex-direction:column; height: 60vh; max-height: 500px;">
+            <div class="modal-header">
+                <h3>Ignored Updates</h3>
+                <div class="modal-controls">
+                    <button id="close-ignored-modal" class="modal-btn" title="Close">×</button>
+                </div>
+            </div>
+            <div id="ignored-list" class="modal-output"
+                style="flex:1; overflow-y:auto; padding: 15px; display: flex; flex-direction: column;">
+                <!-- List items -->
+            </div>
+            <div style="padding: 15px; border-top: 1px solid var(--border);">
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">Ignored apps will not appear in the updates
+                    list.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Minimized Tasks Tray -->
     <div id="minimized-tray" class="minimized-tray" style="display:none;"></div>
 
@@ -201,7 +262,7 @@
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=final"></script>
 </body>
 
 </html>

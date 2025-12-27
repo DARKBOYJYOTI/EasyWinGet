@@ -12,7 +12,7 @@ if %errorLevel% == 0 (
 
 :elevate
 echo Requesting administrator privileges...
-powershell -Command "Start-Process '%~f0' -Verb RunAs"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process '%~f0' -Verb RunAs"
 exit /b
 
 :run
