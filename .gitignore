@@ -1,0 +1,10 @@
+# Cache Files
+data/installed.json
+data/updates.json
+
+# Downloads Directory
+Downloads/
+
+# Temporary Files
+winget_output.tmp
+*.log
