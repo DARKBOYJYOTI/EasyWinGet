@@ -82,17 +82,522 @@ function log(msg, data) {
     console.log(`[EasyWinGet] ${msg}`, data || '');
 }
 
-function getIcon(name) {
+// ==========================================
+// ICON LOGIC
+// ==========================================
+const DOMAIN_MAP = {
+    'Microsoft': 'microsoft.com',
+    'Google': 'google.com',
+    'Mozilla': 'mozilla.org',
+    'Discord': 'discord.com',
+    'Spotify': 'spotify.com',
+    'Valve': 'steampowered.com',
+    'EpicGames': 'epicgames.com',
+    'Notion': 'notion.so',
+    'Slack': 'slack.com',
+    'Oracle': 'oracle.com',
+    'Adobe': 'adobe.com',
+    'VideoLAN': 'videolan.org',
+    'Canonical': 'ubuntu.com',
+    '7zip': '7-zip.org',
+    'GIMP': 'gimp.org',
+    'Blender': 'blender.org',
+    'OBSProject': 'obsproject.com',
+    'Telegram': 'telegram.org',
+    'WhatsApp': 'whatsapp.com',
+    'Zoom': 'zoom.us',
+    'Dropbox': 'dropbox.com',
+    'Figma': 'figma.com',
+    'Git': 'git-scm.com',
+    'Python': 'python.org',
+    'NodeJS': 'nodejs.org',
+    'OpenJS': 'nodejs.org',
+    'Docker': 'docker.com',
+    'Kubernetes': 'kubernetes.io',
+    'JetBrains': 'jetbrains.com',
+    'TheDocumentFoundation': 'libreoffice.org',
+    'Brave': 'brave.com',
+    'Vivaldi': 'vivaldi.com',
+    'Opera': 'opera.com',
+    'RARLab': 'rarlab.com',
+    'WinRAR': 'rarlab.com',
+    'Nullsoft': 'winamp.com',
+    'GerardoG': 'github.com',
+    'JanDeDobbeleer': 'ohmyposh.dev',
+    'OhMyPosh': 'ohmyposh.dev',
+    'BurntSushi': 'github.com',
+    'JQLang': 'github.com',
+    'Deltco': 'github.com',
+    'XhmikosR': 'github.com',
+    'CoreyButler': 'github.com',
+    'ApacheFriends': 'apachefriends.org',
+    'Adobe': 'adobe.com',
+    'EpicGames': 'epicgames.com',
+    'Valve': 'steampowered.com',
+    'Discord': 'discord.com',
+    'Slack': 'slack.com',
+    'Spotify': 'spotify.com',
+    'Notepad++': 'notepad-plus-plus.org',
+    'PuTTY': 'putty.org',
+    'Audacity': 'audacityteam.org',
+    'Inkscape': 'inkscape.org',
+    'Krita': 'krita.org',
+    'HandBrake': 'handbrake.fr',
+    'Wireshark': 'wireshark.org',
+    'VirtualBox': 'virtualbox.org',
+    'Oracle': 'oracle.com',
+    'Vmware': 'vmware.com',
+    'TeamViewer': 'teamviewer.com',
+    'AnyDesk': 'anydesk.com',
+    'Rust': 'rust-lang.org',
+    'GoLang': 'go.dev',
+    'Ruby': 'ruby-lang.org',
+    'PHP': 'php.net',
+    'Mozilla': 'mozilla.org',
+    'Thunderbird': 'thunderbird.net',
+    'Signal': 'signal.org',
+    'Element': 'element.io',
+    'Bitwarden': 'bitwarden.com',
+    'LastPass': 'lastpass.com',
+    '1Password': '1password.com',
+    'KeePass': 'keepass.info',
+    'Greenshot': 'getgreenshot.org',
+    'ShareX': 'getsharex.com',
+    'BleachBit': 'bleachbit.org',
+    'CCleaner': 'ccleaner.com',
+    'Malwarebytes': 'malwarebytes.com',
+    'Avast': 'avast.com',
+    'AVG': 'avg.com',
+    'Kaspersky': 'kaspersky.com',
+    'ESET': 'eset.com',
+    'McAfee': 'mcafee.com',
+    'Norton': 'norton.com',
+    'Logitech': 'logitech.com',
+    'Razer': 'razer.com',
+    'Corsair': 'corsair.com',
+    'SteelSeries': 'steelseries.com',
+    'Nvidia': 'nvidia.com',
+    'AMD': 'amd.com',
+    'Intel': 'intel.com',
+    'Asus': 'asus.com',
+    'Acer': 'acer.com',
+    'Dell': 'dell.com',
+    'HP': 'hp.com',
+    'Lenovo': 'lenovo.com',
+    'MSI': 'msi.com',
+    'Samsung': 'samsung.com',
+    'LG': 'lg.com',
+    'Sony': 'sony.com',
+    'Apple': 'apple.com',
+    'Amazon': 'amazon.com',
+    'Netflix': 'netflix.com',
+    'Hulu': 'hulu.com',
+    'Disney': 'disneyplus.com',
+    'Twitch': 'twitch.tv',
+    'OBS': 'obsproject.com',
+    'Streamlabs': 'streamlabs.com',
+    'Unity': 'unity.com',
+    'UnrealEngine': 'unrealengine.com',
+    'Godot': 'godotengine.org',
+    'Arduino': 'arduino.cc',
+    'RaspberryPi': 'raspberrypi.com',
+    'Plex': 'plex.tv',
+    'Jellyfin': 'jellyfin.org',
+    'Emby': 'emby.media',
+    'Kodi': 'kodi.tv',
+    'VLC': 'videolan.org',
+    'MPC-HC': 'mpc-hc.org',
+    'PotPlayer': 'potplayer.daum.net',
+    'Foobar2000': 'foobar2000.org',
+    'AIMP': 'aimp.ru',
+    'MusicBee': 'getmusicbee.com',
+    'Audacious': 'audacious-media-player.org',
+    'Clementine': 'clementine-player.org',
+    'Strawberry': 'strawberrymusicplayer.org',
+    'QuodLibet': 'quodlibet.readthedocs.io',
+    'Rhythmbox': 'wiki.gnome.org/Apps/Rhythmbox',
+    'Lollypop': 'wiki.gnome.org/Apps/Lollypop',
+    'GnomeMusic': 'wiki.gnome.org/Apps/Music',
+    'Elisa': 'kde.org/applications/multimedia/org.kde.elisa',
+    'JuK': 'kde.org/applications/multimedia/org.kde.juk',
+    'Cantata': 'github.com/CDrummond/cantata',
+    'MPD': 'musicpd.org',
+    'NCMPCPP': 'rybczak.net/ncmpcpp',
+    'Beets': 'beets.io',
+    'Picard': 'picard.musicbrainz.org'
+};
+
+function getEmojiFallback(name) {
     if (!name) return '📦';
     const n = name.toLowerCase();
     if (n.includes('chrome') || n.includes('edge') || n.includes('firefox') || n.includes('brave')) return '🌐';
-    if (n.includes('code') || n.includes('git')) return '💻';
-    if (n.includes('discord') || n.includes('slack')) return '💬';
-    if (n.includes('spotify') || n.includes('vlc')) return '🎵';
-    if (n.includes('steam')) return '🎮';
-    if (n.includes('python') || n.includes('node')) return '🐍';
-    if (n.includes('office') || n.includes('word')) return '📄';
+    if (n.includes('code') || n.includes('git') || n.includes('studio')) return '💻';
+    if (n.includes('discord') || n.includes('slack') || n.includes('telegram')) return '💬';
+    if (n.includes('spotify') || n.includes('vlc') || n.includes('media')) return '🎵';
+    if (n.includes('steam') || n.includes('game') || n.includes('play')) return '🎮';
+    if (n.includes('python') || n.includes('node') || n.includes('java')) return '🐍';
+    if (n.includes('office') || n.includes('word') || n.includes('excel')) return '📄';
+    if (n.includes('zip') || n.includes('rar') || n.includes('7z')) return '🗜️';
     return '📦';
+}
+
+// ==========================================
+// INTELLIGENT ICON FALLBACK
+// ==========================================
+// ==========================================
+// INTELLIGENT ICON FALLBACK & LOADING
+// ==========================================
+// Helper to get fallback domain
+function getDomain(id) {
+    if (!id) return null;
+
+    // 0. Product Specific Map (Best for Google S2 accuracy)
+    const PRODUCT_MAP = {
+        'Microsoft.Teams': 'teams.microsoft.com',
+        'Microsoft.VisualStudioCode': 'code.visualstudio.com',
+        'Microsoft.Edge': 'microsoft.com/edge', // Google S2 handles paths poorly, usually just domain. Let's try edge.microsoft.com? or generic.
+        'Microsoft.PowerToys': 'learn.microsoft.com', // Often has generic MS icon, but better than nothing
+        'Google.Chrome': 'google.com/chrome',
+        'Mozilla.Firefox': 'mozilla.org', // Firefox usually has its own
+        'Brave.Brave': 'brave.com',
+        'VideoLAN.VLC': 'videolan.org',
+        'Discord.Discord': 'discord.com',
+        'Slack.Slack': 'slack.com',
+        'Spotify.Spotify': 'spotify.com',
+        'Valve.Steam': 'store.steampowered.com',
+        'EpicGames.EpicGamesLauncher': 'store.epicgames.com',
+        'Telegram.TelegramDesktop': 'telegram.org',
+        'WhatsApp.WhatsApp': 'whatsapp.com',
+        'Zoom.Zoom': 'zoom.us',
+        'Notion.Notion': 'notion.so',
+        'Figma.Figma': 'figma.com',
+        'Postman.Postman': 'postman.com',
+        'Obsidian.Obsidian': 'obsidian.md',
+        'Anki.Anki': 'apps.ankiweb.net',
+        'Audacity.Audacity': 'audacityteam.org',
+        'GIMP.GIMP': 'gimp.org',
+        'Blender.Blender': 'blender.org',
+        'OBSProject.OBSStudio': 'obsproject.com',
+        'HandBrake.HandBrake': 'handbrake.fr',
+        'Wireshark.Wireshark': 'wireshark.org',
+        'Oracle.VirtualBox': 'virtualbox.org',
+        'Git.Git': 'git-scm.com',
+        'Python.Python': 'python.org',
+        'OpenJS.NodeJS': 'nodejs.org',
+        'Docker.DockerDesktop': 'docker.com',
+        'Kubernetes.Kubernetes': 'kubernetes.io',
+        'Microsoft.WindowsTerminal': 'learn.microsoft.com', // Generic
+        'XPipe.XPipe': 'xpipe.io',
+        'JanDeDobbeleer.OhMyPosh': 'ohmyposh.dev'
+    };
+
+    if (PRODUCT_MAP[id]) return PRODUCT_MAP[id];
+
+    // 1. Check for Microsoft Store ID (12 chars alnum)
+    // Map these to apps.microsoft.com for generic MS icon (better than nothing)
+    // or specific if we can guess, but apps.microsoft.com is safe for "Microsoft Store" branding
+    if (/^[a-zA-Z0-9]{12}$/.test(id)) {
+        return 'apps.microsoft.com';
+    }
+
+    // Filter out garbage WinGet IDs
+    if (id.startsWith('ARP') || id.startsWith('MSIX') || id.startsWith('User') || id.startsWith('Machine') || id.includes('{')) {
+        return null;
+    }
+
+    // 2. Exact Match in Map (Full ID)
+    // DISABLED PER USER REQUEST (Use dynamic manifest fetching)
+    // if (DOMAIN_MAP[id]) return DOMAIN_MAP[id];
+
+    // 3. Publisher Match
+    // DISABLED PER USER REQUEST
+    /*
+    const parts = id.split('.');
+    if (parts.length > 0) {
+        const pub = parts[0];
+
+        // Check Map first
+        if (DOMAIN_MAP[pub]) return DOMAIN_MAP[pub];
+
+        // Heuristic: Remove non-alphanumeric and append .com
+        return `${pub.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase()}.com`;
+    }
+    */
+    return null;
+};
+
+// Intersection Observer for Lazy Loading
+const iconObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            observer.unobserve(img);
+            loadIcon(img);
+        }
+    });
+}, { rootMargin: "100px" });
+
+function observeIcons() {
+    document.querySelectorAll('img.lazy-icon').forEach(img => {
+        // Only observe if not already processed
+        if (!img.dataset.loaded) {
+            iconObserver.observe(img);
+        }
+    });
+}
+
+// Helper to clean up UI on success
+function cleanupSuccess(img) {
+    img.style.opacity = 1;
+    if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+        img.parentElement.classList.remove('icon-loading');
+        img.parentElement.classList.add('has-icon');
+    }
+}
+
+// Main Icon Loading Logic
+async function loadIcon(img) {
+    const src = img.dataset.src;
+    if (!src) return;
+
+    // Mark as processed attempt
+    img.dataset.loaded = "true";
+
+    // Add loading state to parent
+    if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+        img.parentElement.classList.add('icon-loading');
+    }
+
+    // Bypass fetch check for Google Icons (CORS blocks fetch, but img src works)
+    if (src.includes('google.com/s2/favicons')) {
+        img.src = src;
+        img.style.opacity = 1;
+        if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+            img.parentElement.classList.remove('icon-loading');
+            img.parentElement.classList.add('has-icon');
+        }
+        return;
+    }
+
+    // ---------------------------------------------------------
+    // DYNAMIC RESOLVER (LAZY LOAD MANIFEST for Real URL)
+    // ---------------------------------------------------------
+    // If src is empty (Stage 5 with no Domain Map hit) OR it's a specific "Resolve Me" flag
+    if (src === 'RESOLVE_MANIFEST') {
+        const appId = img.dataset.id;
+        if (!appId) return; // Should not happen
+
+        try {
+            const res = await fetch(`/api/manifest?id=${encodeURIComponent(appId)}`);
+            const data = await res.json();
+
+            if (data && data.success) {
+                // Optimization: Did server already scrape it?
+                if (data.iconUrl) {
+                    img.src = data.iconUrl;
+                    cleanupSuccess(img);
+                    return;
+                }
+
+                // Fallback: Got domain but no icon URL? Trigger manual Scrape/Google
+                if (data.domain) {
+                    const scrapeUrl = `/api/scrape-icon?domain=${encodeURIComponent(data.domain)}`;
+                    img.dataset.src = scrapeUrl;
+                    loadIcon(img);
+                    return;
+                }
+            }
+        } catch (e) { }
+
+        // If Manifest failed or no domain, fallback to Stage 6 (Give Up / Fallback Icon)
+        // Or just Fallback Emoji
+        img.parentElement.classList.remove('icon-loading');
+        // If we had a fallback element, it would show now if we hid the spinner?
+        // Actually if we just return, the spinner stays forever. We must clean up.
+        if (img.parentElement.classList.contains('icon-wrapper')) {
+            img.parentElement.classList.remove('icon-loading');
+        }
+        // Trigger "Give Up" visual? 
+        // processIconStage(img) might expect 'step' logic.
+        // Let's just force display:none and show fallback.
+        img.style.display = 'none';
+        return;
+    }
+
+    // Special handling for Scraper API (returns JSON, not Image Blob)
+    if (src.includes('/api/scrape-icon')) {
+        try {
+            const res = await fetch(src);
+            const data = await res.json();
+
+            // Default Fallback (Google)
+            let finalUrl = null;
+
+            // Extract domain for fallback from the src URL param
+            const urlObj = new URL(src, window.location.origin);
+            const domain = urlObj.searchParams.get('domain');
+            const googleFallback = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+
+            if (data && data.success && data.url) {
+                finalUrl = data.url;
+            } else {
+                finalUrl = googleFallback;
+            }
+
+            img.src = finalUrl;
+            img.style.opacity = 1;
+
+            // Success State (Spinner Off)
+            if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+                img.parentElement.classList.remove('icon-loading');
+                img.parentElement.classList.add('has-icon');
+            }
+            return;
+
+        } catch (e) {
+            // Extract domain for fallback from the src URL param
+            try {
+                const urlObj = new URL(src, window.location.origin);
+                const domain = urlObj.searchParams.get('domain');
+                img.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+                img.style.opacity = 1;
+                if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+                    img.parentElement.classList.remove('icon-loading');
+                    img.parentElement.classList.add('has-icon');
+                }
+            } catch (ex) { }
+            return;
+        }
+    }
+
+    try {
+        // Use GET instead of HEAD to ensure we get headers properly (and the image if it exists)
+        // Since we are same-origin for /api/icon, this is fine.
+        // For external URLs, we still try.
+        const res = await fetch(src);
+
+        if (res.ok) {
+            // Check for our custom "Missing" header from server
+            if (res.headers.get('X-Icon-Missing') === 'true') {
+                // Server says it's missing (but sent 200 OK to hide console error)
+                processIconStage(img);
+                return;
+            }
+
+            // Valid image
+            const blob = await res.blob();
+            img.src = URL.createObjectURL(blob);
+            img.style.opacity = 1;
+
+            // Robustly hide fallback by adding class to parent wrapper
+            // This allows CSS to handle the visibility state cleanly
+            if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+                img.parentElement.classList.remove('icon-loading');
+                img.parentElement.classList.add('has-icon');
+            }
+            return;
+        }
+    } catch (e) { }
+
+    // If failed, proceed to next stage
+    processIconStage(img);
+}
+
+async function processIconStage(img) {
+    const id = img.dataset.id;
+    let stage = parseInt(img.dataset.stage || '0');
+
+    // If local icon failed (stage 0), try web scraping via manifest
+    if (stage < 5) {
+        img.dataset.stage = 5;
+        img.dataset.src = 'RESOLVE_MANIFEST';
+        loadIcon(img);
+        return;
+    }
+
+    // Stage 5+ failed, show fallback emoji
+    img.dataset.stage = 6;
+    img.style.display = 'none';
+    if (img.parentElement && img.parentElement.classList.contains('icon-wrapper')) {
+        img.parentElement.classList.remove('icon-loading');
+    }
+}
+
+// Window global for manual triggering if needed
+window.handleIconError = function (img) {
+    if (!img.dataset.loaded) loadIcon(img);
+};
+
+function getAppIconHTML(app, isInstalled = false) {
+    if (!app) return `<span class="icon">📦</span>`;
+
+    const fallbackEmoji = getEmojiFallback(app.name);
+
+    // Prepare Data Attributes
+    const safeId = (app.id || '').replace(/"/g, '&quot;');
+    const safeName = (app.name || '').replace(/"/g, '&quot;');
+
+    // Determine Initial Source
+    let initialSrc = '';
+    let initialStage = 0;
+
+    // 1. Downloaded File (Explicit path) - Highest Priority
+    if (app.file) {
+        const encodedFile = encodeURIComponent(app.file);
+        initialSrc = `/api/icon?file=${encodedFile}`;
+        initialStage = -1; // Special stage for file based
+    }
+    // 2. Local Icon for Installed Apps
+    else if (isInstalled || (State.cache.installed && State.cache.installed.some(i => i.id === app.id))) {
+        const encodedName = encodeURIComponent(app.name);
+        const encodedId = encodeURIComponent(app.id);
+        initialSrc = `/api/icon?id=${encodedId}&name=${encodedName}`;
+        initialStage = 0;
+    }
+    // 3. Search / Updates (Start with Scraper/Google)
+    else {
+        const domain = getDomain(app.id);
+        if (domain) {
+            // Set the Source to the Scraper API
+            initialSrc = `/api/scrape-icon?domain=${encodeURIComponent(domain)}`;
+            initialStage = 5;
+        } else {
+            // NEW: Dynamic Resolver!
+            // Instead of failing to emoji, we ask the server to find the domain.
+            initialSrc = 'RESOLVE_MANIFEST';
+            initialStage = 5;
+        }
+    }
+
+    // Use data-src to prevent browser from firing 404s to console immediately
+    const imgHtml = `
+            <img 
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                data-src="${initialSrc}"
+                class="app-icon lazy-icon" 
+                alt="${safeName}"
+                data-id="${safeId}"
+                data-name="${safeName}"
+                data-stage="${initialStage}"
+                style="opacity: 0; transition: opacity 0.3s;"
+            >`;
+
+    // Start everything in LOADING state (spinner) to hide fallback flicker
+    const loadingClass = 'icon-loading';
+
+    return `
+        <div class="icon-wrapper ${loadingClass}">
+            ${imgHtml}
+            <div class="icon-fallback">
+                <span class="icon">${fallbackEmoji}</span>
+            </div>
+        </div>
+    `;
+}
+
+// Backward compatibility alias for parts I might have missed
+function getIcon(name) {
+    return getEmojiFallback(name);
 }
 
 // Toast Singleton - Replaces any existing toast
@@ -688,6 +1193,21 @@ function renderSearchResults(results) {
         return;
     }
 
+    // Sort: Installed first, then keep winget's original relevance order
+    const installedIds = new Set((State.cache.installed || []).map(i => i.id));
+
+    validResults.sort((a, b) => {
+        const aInstalled = installedIds.has(a.id);
+        const bInstalled = installedIds.has(b.id);
+
+        // Only reorder if one is installed and other is not
+        if (aInstalled && !bInstalled) return -1;
+        if (!aInstalled && bInstalled) return 1;
+
+        // Keep original winget relevance order
+        return 0;
+    });
+
     empty.style.display = 'none';
     container.style.display = 'grid';
 
@@ -715,7 +1235,7 @@ function renderSearchResults(results) {
 
         return `
         <div class="app-card">
-            <span class="icon">${getIcon(app.name)}</span>
+            ${getAppIconHTML(app)}
             <h3>${app.name}</h3>
             <div 
                 class="app-id" 
@@ -731,6 +1251,7 @@ function renderSearchResults(results) {
     `}).join('');
 
     log(`Rendered ${validResults.length} search results`);
+    observeIcons();
 }
 
 function renderInstalledApps(apps, filter = '') {
@@ -761,7 +1282,7 @@ function renderInstalledApps(apps, filter = '') {
 
     container.innerHTML = filtered.map(app => `
         <div class="app-row">
-            <span class="icon">${getIcon(app.name)}</span>
+            ${getAppIconHTML(app, true)}
             <div class="info">
                 <h3>${app.name}</h3>
                 <p 
@@ -775,6 +1296,7 @@ function renderInstalledApps(apps, filter = '') {
     `).join('');
 
     log(`Rendered ${filtered.length}/${validApps.length} installed apps`);
+    observeIcons();
 }
 
 function renderUpdates(updates, filter = '') {
@@ -794,6 +1316,11 @@ function renderUpdates(updates, filter = '') {
     const headerTitle = document.getElementById('updates-header-title');
     if (headerTitle) headerTitle.textContent = `Available Updates (${validUpdates.length})`;
 
+    const updateAllBtn = document.getElementById('update-all-btn');
+    if (updateAllBtn) {
+        updateAllBtn.style.display = validUpdates.length > 0 ? 'inline-block' : 'none';
+    }
+
     const filtered = filter ? validUpdates.filter(app =>
         (app.name && app.name.toLowerCase().includes(filter.toLowerCase())) ||
         (app.id && app.id.toLowerCase().includes(filter.toLowerCase()))
@@ -806,7 +1333,7 @@ function renderUpdates(updates, filter = '') {
 
     container.innerHTML = filtered.map(app => `
         <div class="app-card">
-            <span class="icon">${getIcon(app.name)}</span>
+            ${getAppIconHTML(app)}
             <h3>${app.name}</h3>
             <div 
                 class="app-id" 
@@ -831,6 +1358,7 @@ function renderUpdates(updates, filter = '') {
     }
 
     log(`Rendered ${filtered.length}/${validUpdates.length} updates`);
+    observeIcons();
 }
 
 // ==========================================
@@ -959,12 +1487,13 @@ function renderDownloaded(files) {
 
             return `
             <div class="app-row">
-                <span class="icon">📦</span>
+                ${getAppIconHTML({ name: file.Name, file: file.Name })}
                 <div class="info">
                     <h3>${file.Name}</h3>
                     <p>${size} • ${dateStr}</p>
                 </div>
                 <div class="actions">
+                    <button class="btn btn-folder" onclick="openDownloadedFolder('${safePath}')" title="Open Folder">📂</button>
                     <button class="btn btn-primary" onclick="confirmRunDownloaded('${safePath}')">Run</button>
                     <button class="btn btn-danger" onclick="confirmDeleteDownloaded('${safePath}')">Delete</button>
                 </div>
@@ -973,6 +1502,7 @@ function renderDownloaded(files) {
     }
 
     log(`Rendered ${validFiles.length} downloaded files`);
+    observeIcons();
 }
 
 async function fetchDownloaded() {
@@ -1091,6 +1621,19 @@ window.confirmDeleteDownloaded = async function (fileName) {
             .catch(() => showToast('Network error', 'error'));
     }
 };
+
+// Open folder containing downloaded file
+window.openDownloadedFolder = function (fileName) {
+    fetch(`/api/downloaded/open-folder?file=${encodeURIComponent(fileName)}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                showToast('Failed to open folder', 'error');
+            }
+        })
+        .catch(() => showToast('Network error', 'error'));
+};
+
 // VIEW SWITCHING
 // ==========================================
 function switchView(viewName) {
@@ -1231,6 +1774,7 @@ async function loadUpdates(refresh = false, background = false) {
 }
 
 async function handleSearch(query) {
+    if (!query) query = '';
     const trimmed = query.trim();
     const results = DOM.containers.searchResults;
     const empty = DOM.containers.searchEmpty;
@@ -1652,35 +2196,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setupRealTimeFiltering();
 });
 
-// ==========================================
-// HEARTBEAT & AUTO-CLOSE
-// ==========================================
-// Send keepalive ping every 500ms (faster checks)
-setInterval(() => {
-    fetch('/api/keepalive', { method: 'POST', body: '{}', headers: { 'Content-Type': 'application/json' } })
-        .catch(() => {
-            console.warn('Server disconnected!');
-            // Server died or network lost
-            // Attempt to close window or show message
-            document.body.innerHTML = `
-                <div style="
-                    position:fixed; top:0; left:0; width:100%; height:100%;
-                    background: #1e1e1e; color: #fff;
-                    display:flex; flex-direction:column;
-                    align-items:center; justify-content:center;
-                    font-family: sans-serif; z-index:99999;
-                ">
-                    <h1>Server Stopped</h1>
-                    <p>You can close this tab now.</p>
-                </div>
-            `;
-            // Try closing (often blocked unless script opened window)
-            window.close();
-        });
-}, 2000);
+// --- HEARTBEAT & AUTO-SHUTDOWN REMOVED ---
 
-// INSTANT SHUTDOWN ON TAB CLOSE
-window.addEventListener('beforeunload', () => {
-    // Send beacon (fire and forget)
-    navigator.sendBeacon('/api/shutdown');
-});

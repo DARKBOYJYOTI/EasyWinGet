@@ -1,0 +1,128 @@
+PackageIdentifier: GlavSoft.RemoteRipple
+PackageVersion: 1.2.0.0
+Documentations:
+- DocumentLabel: Getting Started
+  DocumentUrl: https://remoteripple.com/getting-started/
+- DocumentLabel: FAQ
+  DocumentUrl: https://remoteripple.com/faq/
+Icons:
+- IconUrl: https://cdn.winget.microsoft.com/icons/91cf20db246b2cbadb4b628f0dde138c5670be68479987b84b86f2d2023d7fae.ico
+  IconFileType: ico
+  IconResolution: custom
+  IconTheme: default
+  IconSha256: 91cf20db246b2cbadb4b628f0dde138c5670be68479987b84b86f2d2023d7fae
+Tags:
+- remote
+- vnc
+PackageLocale: en-US
+Author: GlavSoft LLC
+Copyright: "Copyright \xA9 2024 GlavSoft LLC. All rights reserved,"
+CopyrightUrl: https://remoteripple.com/license/
+Description: Remote Ripple is a new generation TightVNC Viewer developed by the same
+  creators (GlavSoft). It is used for accessing remote PCs from mobile and desktop,
+  and it is free even for commercial use.
+ShortDescription: A modern lightweight viewer based on TightVNC technology.
+License: Proprietary
+LicenseUrl: https://remoteripple.com/license/
+PackageName: Remote Ripple
+PackageUrl: https://remoteripple.com/download/
+PrivacyUrl: https://remoteripple.com/privacy-policy/
+Publisher: GlavSoft LLC.
+PublisherSupportUrl: https://remoteripple.com/support/
+PublisherUrl: https://remoteripple.com/
+ReleaseNotes: "New Design and User Experience:\n- The user interface in viewer tabs
+  has been redesigned to ensure consistency with MightyViewer (a tool you should definitely
+  check out \u2014 it might be the perfect fit for your particular needs!).\n- The
+  number of saved connections has increased from 10 to 100.\nNew Features:\n- Implemented
+  multi-monitor support. Now you can choose a specific monitor in the viewer when
+  the remote host has multiple monitors connected. This feature works when connected
+  to TightVNC Server for Windows, starting with version 2.8.81.\n- Added desktop scaling.\n-
+  Added an option to save VNC passwords.\n- Improved handling of authentication failures.
+  The viewer now prompts for a password again if the previous password was incorrect.\n-
+  Enabled editing of station names in the list of recent connections.\n- Made logging
+  configurable.\nBug Fixes:\n- Fixed an issue where the Home tab failed to display
+  on startup.\n- Fixed a keyboard issue with the Alt-Gr key in Spanish, French, and
+  German keyboard layouts.\n- Fixed incorrect session saving when starting a connection
+  from the address line.\n- Fixed a memory leak (a bug fix in the Remote Core SDK).\n-
+  Port numbers can now be specified with a single colon, e.g., :5900, instead of requiring
+  two colons (::5900).\n- Various minor improvements and bug fixes.\nOther Improvements:\n-
+  Enhanced error handling and improved displaying of error messages.\n- Added links
+  to the MightyViewer and Remote Core SDK websites from the Remote Ripple user interface."
+ReleaseNotesUrl: https://remoteripple.com/change-log/
+Localization:
+- Documentations:
+  - DocumentLabel: "\u5165\u95E8\u6307\u5357"
+    DocumentUrl: https://remoteripple.com/getting-started/
+  - DocumentLabel: "\u5E38\u89C1\u95EE\u9898"
+    DocumentUrl: https://remoteripple.com/faq/
+  Tags:
+  - vnc
+  - "\u8FDC\u7A0B"
+  PackageLocale: zh-CN
+  Description: "Remote Ripple \u662F\u7531\u539F\u5F00\u53D1\u56E2\u961F(GlavSoft)\u6253\u9020\u7684\u65B0\u4E00\u4EE3
+    TightVNC \u67E5\u770B\u5668\u3002\u5B83\u652F\u6301\u901A\u8FC7\u79FB\u52A8\u8BBE\u5907\u4E0E\u684C\u9762\u7535\u8111\u8BBF\u95EE\u8FDC\u7A0B\u8BA1\u7B97\u673A,\u5E76\u53EF\u514D\u8D39\u7528\u4E8E\u5546\u4E1A\u7528\u9014\u3002"
+  ShortDescription: "\u57FA\u4E8E TightVNC \u6280\u672F\u7684\u73B0\u4EE3\u8F7B\u91CF\u7EA7\u67E5\u770B\u5668\u3002"
+  License: "\u4E13\u6709\u8F6F\u4EF6"
+Installers:
+- Architecture: x64
+  InstallerType: burn
+  InstallerSha256: d302bda22fc3bd291bc0a02af35c38edc942778ac960820b5895c6cf6662219c
+  InstallerUrl: https://remoteripple.com/downloads/RemoteRipple-1.2.0-setup.exe
+  Scope: machine
+  ReleaseDate: 2024-08-14
+  InstallerAbortsTerminal: false
+  InstallLocationRequired: false
+  RequireExplicitUpgrade: false
+  DisplayInstallWarnings: false
+  DownloadCommandProhibited: false
+  ArchiveBinariesDependOnPath: false
+  ProductCode: '{7a34e40e-5c19-492e-8c78-469b0ff7952a}'
+  UpgradeBehavior: install
+  AppsAndFeaturesEntries:
+  - UpgradeCode: '{C0547BDA-0004-464A-925D-6350EC972AE7}'
+  ExpectedReturnCodes:
+  - InstallerReturnCode: 87
+    ReturnResponse: invalidParameter
+  - InstallerReturnCode: 112
+    ReturnResponse: diskFull
+  - InstallerReturnCode: 1601
+    ReturnResponse: contactSupport
+  - InstallerReturnCode: 1602
+    ReturnResponse: cancelledByUser
+  - InstallerReturnCode: 1618
+    ReturnResponse: installInProgress
+  - InstallerReturnCode: 1623
+    ReturnResponse: systemNotSupported
+  - InstallerReturnCode: 1625
+    ReturnResponse: blockedByPolicy
+  - InstallerReturnCode: 1628
+    ReturnResponse: invalidParameter
+  - InstallerReturnCode: 1633
+    ReturnResponse: systemNotSupported
+  - InstallerReturnCode: 1638
+    ReturnResponse: alreadyInstalled
+  - InstallerReturnCode: 1639
+    ReturnResponse: invalidParameter
+  - InstallerReturnCode: 1640
+    ReturnResponse: blockedByPolicy
+  - InstallerReturnCode: 1641
+    ReturnResponse: rebootInitiated
+  - InstallerReturnCode: 1643
+    ReturnResponse: blockedByPolicy
+  - InstallerReturnCode: 1644
+    ReturnResponse: blockedByPolicy
+  - InstallerReturnCode: 1649
+    ReturnResponse: blockedByPolicy
+  - InstallerReturnCode: 1650
+    ReturnResponse: invalidParameter
+  - InstallerReturnCode: 1654
+    ReturnResponse: systemNotSupported
+  - InstallerReturnCode: 3010
+    ReturnResponse: rebootRequiredToFinish
+  InstallerSwitches:
+    Silent: /quiet /norestart
+    SilentWithProgress: /passive /norestart
+    Log: /log "<LOGPATH>"
+    InstallLocation: TARGETDIR="<INSTALLPATH>"
+ManifestVersion: 1.10.0
+ManifestType: merged

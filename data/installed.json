@@ -1,1 +1,662 @@
-﻿[]
+[
+  {
+    "name": "Git",
+    "id": "Git.Git",
+    "version": "2.52.0"
+  },
+  {
+    "name": "Icaros",
+    "id": "Xanashi.Icaros",
+    "version": "3.3.3.301"
+  },
+  {
+    "name": "Microsoft 365 Apps for enterprise - en-us",
+    "id": "Microsoft.Office",
+    "version": "16.0.19426.20218"
+  },
+  {
+    "name": "RustDesk",
+    "id": "RustDesk.RustDesk",
+    "version": "1.4.4"
+  },
+  {
+    "name": "VLC media player",
+    "id": "VideoLAN.VLC",
+    "version": "3.0.23"
+  },
+  {
+    "name": "Wise Memory Optimizer",
+    "id": "WiseCleaner.WiseMemoryOptimizer",
+    "version": "4.2.4"
+  },
+  {
+    "name": "XAMPP",
+    "id": "ApacheFriends.Xampp.8.2",
+    "version": "8.2.12-0"
+  },
+  {
+    "name": "Free Download Manager",
+    "id": "SoftDeluxe.FreeDownloadManager",
+    "version": "6.32.0.6586"
+  },
+  {
+    "name": "Fingerprint Unlock Module version 1.3.0",
+    "id": "ARP\\Machine\\X64\\{1834ECD4-5F71-40F0-820E-…",
+    "version": "1.3.0"
+  },
+  {
+    "name": "Foxit PDF Reader",
+    "id": "Foxit.FoxitReader",
+    "version": "2025.2.1.33197"
+  },
+  {
+    "name": "Microsoft Visual C++ 2010  x64 Redistribu…",
+    "id": "Microsoft.VCRedist.2010.x64",
+    "version": "10.0.40219"
+  },
+  {
+    "name": "Nilesoft Shell",
+    "id": "Nilesoft.Shell",
+    "version": "1.9.18"
+  },
+  {
+    "name": "Cloudflare WARP",
+    "id": "Cloudflare.Warp",
+    "version": "25.9.558.0"
+  },
+  {
+    "name": "ImageGlass",
+    "id": "DuongDieuPhap.ImageGlass",
+    "version": "9.4.1.15"
+  },
+  {
+    "name": "DB Browser for SQLite",
+    "id": "DBBrowserForSQLite.DBBrowserForSQLite",
+    "version": "3.13.1"
+  },
+  {
+    "name": "gsudo v2.6.1",
+    "id": "gerardog.gsudo",
+    "version": "2.6.1"
+  },
+  {
+    "name": "Microsoft Visual C++ 2008 Redistributable…",
+    "id": "Microsoft.VCRedist.2008.x64",
+    "version": "9.0.30729.6161"
+  },
+  {
+    "name": "GitHub CLI",
+    "id": "GitHub.cli",
+    "version": "2.83.2"
+  },
+  {
+    "name": "Everything 1.4.1.1030 (x64)",
+    "id": "voidtools.Everything",
+    "version": "1.4.1.1030"
+  },
+  {
+    "name": "Microsoft Visual C++ 2008 Redistributable…",
+    "id": "ARP\\Machine\\X64\\{8220EEFE-38CD-377E-8595-…",
+    "version": "9.0.30729"
+  },
+  {
+    "name": "Node.js",
+    "id": "OpenJS.NodeJS",
+    "version": "25.2.1"
+  },
+  {
+    "name": "Microsoft Visual C++ 2005 Redistributable…",
+    "id": "ARP\\Machine\\X64\\{ad8a2fa1-06e7-4b0d-927d-…",
+    "version": "8.0.61000"
+  },
+  {
+    "name": "Avro Keyboard 5.6.0",
+    "id": "OmicronLab.Avro",
+    "version": "5.6.0"
+  },
+  {
+    "name": "BanglaWord v1.9.0",
+    "id": "ARP\\Machine\\X86\\BanglaWord v1.9.0",
+    "version": "Unknown"
+  },
+  {
+    "name": "Enigma Virtual Box",
+    "id": "Enigma.VirtualBox",
+    "version": "Unknown"
+  },
+  {
+    "name": "Adobe Lightroom Classic",
+    "id": "ARP\\Machine\\X86\\LTRM_15_0_1",
+    "version": "15.0.1"
+  },
+  {
+    "name": "Nmap 7.80",
+    "id": "Insecure.Nmap",
+    "version": "7.80"
+  },
+  {
+    "name": "Npcap 0.9982",
+    "id": "ARP\\Machine\\X86\\NpcapInst",
+    "version": "0.9982"
+  },
+  {
+    "name": "Adobe Photoshop 2025",
+    "id": "ARP\\Machine\\X86\\PHSP_26_11",
+    "version": "26.11.0.18"
+  },
+  {
+    "name": "Adobe Premiere Pro 2025",
+    "id": "ARP\\Machine\\X86\\PPRO_25_5",
+    "version": "25.5"
+  },
+  {
+    "name": "UXP WebView Support",
+    "id": "ARP\\Machine\\X86\\UXPW_1_3_0",
+    "version": "1.3.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2013 Redistributable…",
+    "id": "Microsoft.VCRedist.2013.x64",
+    "version": "12.0.40664.0"
+  },
+  {
+    "name": "Microsoft Windows Desktop Runtime - 6.0.3…",
+    "id": "Microsoft.DotNet.DesktopRuntime.6",
+    "version": "6.0.36"
+  },
+  {
+    "name": "Microsoft Visual C++ v14 Redistributable …",
+    "id": "Microsoft.VCRedist.2015+.x86",
+    "version": "14.50.35719.0"
+  },
+  {
+    "name": "Microsoft .NET SDK 8.0.416 (x64)",
+    "id": "Microsoft.DotNet.SDK.8",
+    "version": "8.0.416"
+  },
+  {
+    "name": "Microsoft Visual C++ 2012 Redistributable…",
+    "id": "Microsoft.VCRedist.2012.x86",
+    "version": "11.0.61030.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2005 Redistributable",
+    "id": "Microsoft.VCRedist.2005.x86",
+    "version": "8.0.61001"
+  },
+  {
+    "name": "Remote Ripple",
+    "id": "GlavSoft.RemoteRipple",
+    "version": "1.2.0.0"
+  },
+  {
+    "name": "Microsoft Visual C++ v14 Redistributable …",
+    "id": "Microsoft.VCRedist.2015+.x64",
+    "version": "14.50.35719.0"
+  },
+  {
+    "name": "Python Launcher",
+    "id": "Python.Launcher",
+    "version": ">"
+  },
+  {
+    "name": "Microsoft Visual C++ 2008 Redistributable…",
+    "id": "Microsoft.VCRedist.2008.x86",
+    "version": "9.0.30729.6161"
+  },
+  {
+    "name": "Microsoft Visual C++ 2013 Redistributable…",
+    "id": "Microsoft.VCRedist.2013.x86",
+    "version": "12.0.40664.0"
+  },
+  {
+    "name": "Adobe Photoshop CS6 version 13.0.1",
+    "id": "ARP\\Machine\\X86\\{A724DC44-6241-42D3-BA57-…",
+    "version": "13.0.1"
+  },
+  {
+    "name": "Microsoft Visual C++ 2010  x86 Redistribu…",
+    "id": "Microsoft.VCRedist.2010.x86",
+    "version": "10.0.40219"
+  },
+  {
+    "name": "Microsoft Windows Desktop Runtime - 8.0.2…",
+    "id": "Microsoft.DotNet.DesktopRuntime.8",
+    "version": "8.0.22"
+  },
+  {
+    "name": "Microsoft Visual C++ 2012 Redistributable…",
+    "id": "Microsoft.VCRedist.2012.x64",
+    "version": "11.0.61030.0"
+  },
+  {
+    "name": "Perplexity",
+    "id": "ARP\\User\\X64\\0fdb45c705c1f2d41f88f0be3b9d…",
+    "version": "1.0"
+  },
+  {
+    "name": "YouTube",
+    "id": "ARP\\User\\X64\\3c78609502b9abc63086c47f5e59…",
+    "version": "1.0"
+  },
+  {
+    "name": "Facebook",
+    "id": "ARP\\User\\X64\\414dbe5e9e3deb144060ccd31b21…",
+    "version": "1.0"
+  },
+  {
+    "name": "Gmail",
+    "id": "ARP\\User\\X64\\480357fb5704132c40fa91505676…",
+    "version": "1.0"
+  },
+  {
+    "name": "ChatGPT",
+    "id": "ARP\\User\\X64\\8038a41f0cf8e3887487ede58070…",
+    "version": "1.0"
+  },
+  {
+    "name": "Instagram",
+    "id": "ARP\\User\\X64\\8d4acc02650e5fa8e011324ab543…",
+    "version": "1.0"
+  },
+  {
+    "name": "Chromium",
+    "id": "eloston.ungoogled-chromium",
+    "version": "143.0.7499.169"
+  },
+  {
+    "name": "Flow Launcher",
+    "id": "Flow-Launcher.Flow-Launcher",
+    "version": "2.0.3"
+  },
+  {
+    "name": "GNU Nano",
+    "id": "GNU.Nano",
+    "version": "2.7.5"
+  },
+  {
+    "name": "Wget",
+    "id": "JernejSimoncic.Wget",
+    "version": "1.21.4"
+  },
+  {
+    "name": "KDE Connect",
+    "id": "KDE.KDEConnect",
+    "version": "25.08.3"
+  },
+  {
+    "name": "KeyEcho",
+    "id": "ZacharyL2.KeyEcho",
+    "version": "0.0.5"
+  },
+  {
+    "name": "Claude",
+    "id": "ARP\\User\\X64\\ac400c273fb2aa31ab54fc5745b1…",
+    "version": "1.0"
+  },
+  {
+    "name": "cURL",
+    "id": "cURL.cURL",
+    "version": "8.17.0.6"
+  },
+  {
+    "name": "YouTube Music",
+    "id": "ARP\\User\\X64\\f6ba832aee2e7f12e32076e5cb49…",
+    "version": "1.0"
+  },
+  {
+    "name": "Python 3.14.2 (64-bit)",
+    "id": "Python.Python.3.14",
+    "version": "3.14.2"
+  },
+  {
+    "name": "Auto Dark Mode",
+    "id": "ArminOsaj.AutoDarkMode",
+    "version": "11.0.0.54"
+  },
+  {
+    "name": "Telegram Desktop",
+    "id": "Telegram.TelegramDesktop",
+    "version": "6.4.1"
+  },
+  {
+    "name": "Antigravity (User)",
+    "id": "Google.Antigravity",
+    "version": "1.13.3"
+  },
+  {
+    "name": "Cursor (User)",
+    "id": "Anysphere.Cursor",
+    "version": "2.3.23"
+  },
+  {
+    "name": "Energy Star X",
+    "id": "NickJohn.EnergyStarX",
+    "version": "1.0.19.0"
+  },
+  {
+    "name": "Screenbox",
+    "id": "Starpine.Screenbox",
+    "version": "0.17.0.0"
+  },
+  {
+    "name": "NanaZip",
+    "id": "M2Team.NanaZip",
+    "version": "5.0.1263.0"
+  },
+  {
+    "name": "WhatsApp",
+    "id": "MSIX\\5319275A.WhatsAppDesktop_2.2587.9.0_…",
+    "version": "2.2587.9.0"
+  },
+  {
+    "name": "Nahimic",
+    "id": "MSIX\\A-Volute.Nahimic_1.10.9.0_x64__w2gh5…",
+    "version": "1.10.9.0"
+  },
+  {
+    "name": "Intel® Graphics Command Center",
+    "id": "MSIX\\AppUp.IntelGraphicsExperience_1.100.…",
+    "version": "1.100.5688.0"
+  },
+  {
+    "name": "AV1 Video Extension",
+    "id": "MSIX\\Microsoft.AV1VideoExtension_2.0.6.0_…",
+    "version": "2.0.6.0"
+  },
+  {
+    "name": "AVC Encoder Video Extension",
+    "id": "MSIX\\Microsoft.AVCEncoderVideoExtension_1…",
+    "version": "1.1.21.0"
+  },
+  {
+    "name": "Windows Application Compatibility Enhance…",
+    "id": "MSIX\\Microsoft.ApplicationCompatibilityEn…",
+    "version": "1.2511.9.0"
+  },
+  {
+    "name": "App Installer",
+    "id": "Microsoft.AppInstaller",
+    "version": "1.27.350.0"
+  },
+  {
+    "name": "HEIF Image Extension",
+    "id": "MSIX\\Microsoft.HEIFImageExtension_1.2.28.…",
+    "version": "1.2.28.0"
+  },
+  {
+    "name": "HEVC Video Extensions from Device Manufac…",
+    "id": "MSIX\\Microsoft.HEVCVideoExtension_2.4.39.…",
+    "version": "2.4.39.0"
+  },
+  {
+    "name": "MPEG-2 Video Extension",
+    "id": "MSIX\\Microsoft.MPEG2VideoExtension_1.2.13…",
+    "version": "1.2.13.0"
+  },
+  {
+    "name": "Microsoft .Net Native Framework Package 2…",
+    "id": "MSIX\\Microsoft.NET.Native.Framework.2.2_2…",
+    "version": "2.2.29512.0"
+  },
+  {
+    "name": "Microsoft .Net Native Framework Package 2…",
+    "id": "MSIX\\Microsoft.NET.Native.Framework.2.2_2…",
+    "version": "2.2.29512.0"
+  },
+  {
+    "name": "Microsoft .Net Native Runtime Package 2.2",
+    "id": "MSIX\\Microsoft.NET.Native.Runtime.2.2_2.2…",
+    "version": "2.2.28604.0"
+  },
+  {
+    "name": "Microsoft .Net Native Runtime Package 2.2",
+    "id": "MSIX\\Microsoft.NET.Native.Runtime.2.2_2.2…",
+    "version": "2.2.28604.0"
+  },
+  {
+    "name": "Microsoft.Office.ActionsServer",
+    "id": "MSIX\\Microsoft.Office.ActionsServer_16.0.…",
+    "version": "16.0.19426.20218"
+  },
+  {
+    "name": "OfficePushNotificationsUtility",
+    "id": "MSIX\\Microsoft.OfficePushNotificationUtil…",
+    "version": "16.0.19426.20218"
+  },
+  {
+    "name": "Paint",
+    "id": "MSIX\\Microsoft.Paint_11.2511.291.0_x64__8…",
+    "version": "11.2511.291.0"
+  },
+  {
+    "name": "Raw Image Extension",
+    "id": "MSIX\\Microsoft.RawImageExtension_2.5.7.0_…",
+    "version": "2.5.7.0"
+  },
+  {
+    "name": "Snipping Tool",
+    "id": "MSIX\\Microsoft.ScreenSketch_11.2510.31.0_…",
+    "version": "11.2510.31.0"
+  },
+  {
+    "name": "Windows Security",
+    "id": "MSIX\\Microsoft.SecHealthUI_1000.29429.100…",
+    "version": "1000.29429.1000…"
+  },
+  {
+    "name": "Microsoft Engagement Framework",
+    "id": "MSIX\\Microsoft.Services.Store.Engagement_…",
+    "version": "10.0.23012.0"
+  },
+  {
+    "name": "Microsoft Engagement Framework",
+    "id": "MSIX\\Microsoft.Services.Store.Engagement_…",
+    "version": "10.0.23012.0"
+  },
+  {
+    "name": "Start Experiences App",
+    "id": "MSIX\\Microsoft.StartExperiencesApp_1.195.…",
+    "version": "1.195.0.0"
+  },
+  {
+    "name": "Store Experience Host",
+    "id": "MSIX\\Microsoft.StorePurchaseApp_22510.140…",
+    "version": "22510.1401.4.0"
+  },
+  {
+    "name": "Microsoft.UI.Xaml.2.8",
+    "id": "Microsoft.UI.Xaml.2.8",
+    "version": "8.2501.31001.0"
+  },
+  {
+    "name": "Microsoft.UI.Xaml.2.8",
+    "id": "Microsoft.UI.Xaml.2.8",
+    "version": "8.2501.31001.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2015 UWP Desktop Run…",
+    "id": "Microsoft.VCLibs.Desktop.14",
+    "version": "14.0.33728.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2015 UWP Desktop Run…",
+    "id": "Microsoft.VCLibs.Desktop.14",
+    "version": "14.0.33728.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2015 UWP Runtime Pac…",
+    "id": "MSIX\\Microsoft.VCLibs.140.00_14.0.33519.0…",
+    "version": "14.0.33519.0"
+  },
+  {
+    "name": "Microsoft Visual C++ 2015 UWP Runtime Pac…",
+    "id": "MSIX\\Microsoft.VCLibs.140.00_14.0.33519.0…",
+    "version": "14.0.33519.0"
+  },
+  {
+    "name": "VP9 Video Extensions",
+    "id": "MSIX\\Microsoft.VP9VideoExtensions_1.2.12.…",
+    "version": "1.2.12.0"
+  },
+  {
+    "name": "Web Media Extensions",
+    "id": "MSIX\\Microsoft.WebMediaExtensions_2.1.20.…",
+    "version": "2.1.20.0"
+  },
+  {
+    "name": "WebP Image Extension",
+    "id": "MSIX\\Microsoft.WebpImageExtension_1.2.14.…",
+    "version": "1.2.14.0"
+  },
+  {
+    "name": "Widgets Platform Runtime",
+    "id": "MSIX\\Microsoft.WidgetsPlatformRuntime_1.6…",
+    "version": "1.6.14.0"
+  },
+  {
+    "name": "Windows App Runtime DDLM 8000.642.119.0-x6",
+    "id": "MSIX\\Microsoft.WinAppRuntime.DDLM.8000.64…",
+    "version": "8000.642.119.0"
+  },
+  {
+    "name": "Windows App Runtime DDLM 8000.642.119.0-x8",
+    "id": "MSIX\\Microsoft.WinAppRuntime.DDLM.8000.64…",
+    "version": "8000.642.119.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.4",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.4_4000…",
+    "version": "4000.1309.2056.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.4",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.4_4000…",
+    "version": "4000.1309.2056.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.5",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.5_5001…",
+    "version": "5001.373.1736.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.5",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.5_5001…",
+    "version": "5001.373.1736.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.6",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.6_6000…",
+    "version": "6000.519.329.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.6",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.6_6000…",
+    "version": "6000.519.329.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.7",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.7_7000…",
+    "version": "7000.676.1651.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.7",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.7_7000…",
+    "version": "7000.676.1651.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.8",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.8_8000…",
+    "version": "8000.675.1142.0"
+  },
+  {
+    "name": "WindowsAppRuntime.1.8",
+    "id": "MSIX\\Microsoft.WindowsAppRuntime.1.8_8000…",
+    "version": "8000.675.1142.0"
+  },
+  {
+    "name": "Windows Calculator",
+    "id": "MSIX\\Microsoft.WindowsCalculator_11.2508.…",
+    "version": "11.2508.4.0"
+  },
+  {
+    "name": "Windows Notepad",
+    "id": "MSIX\\Microsoft.WindowsNotepad_11.2508.38.…",
+    "version": "11.2508.38.0"
+  },
+  {
+    "name": "Microsoft Store",
+    "id": "MSIX\\Microsoft.WindowsStore_22511.1401.5.…",
+    "version": "22511.1401.5.0"
+  },
+  {
+    "name": "Windows Terminal",
+    "id": "Microsoft.WindowsTerminal",
+    "version": "1.23.13503.0"
+  },
+  {
+    "name": "Windows Package Manager Source (winget) V2",
+    "id": "MSIX\\Microsoft.Winget.Source_2026.106.153…",
+    "version": "2026.106.1530.42"
+  },
+  {
+    "name": "Xbox TCUI",
+    "id": "MSIX\\Microsoft.Xbox.TCUI_1.24.10001.0_x64…",
+    "version": "1.24.10001.0"
+  },
+  {
+    "name": "Game Bar",
+    "id": "MSIX\\Microsoft.XboxGamingOverlay_7.325.11…",
+    "version": "7.325.11061.0"
+  },
+  {
+    "name": "Xbox Identity Provider",
+    "id": "MSIX\\Microsoft.XboxIdentityProvider_12.13…",
+    "version": "12.130.16001.0"
+  },
+  {
+    "name": "Game Speech Window",
+    "id": "MSIX\\Microsoft.XboxSpeechToTextOverlay_1.…",
+    "version": "1.111.30001.0"
+  },
+  {
+    "name": "WinAppRuntime.Main.1.8",
+    "id": "MSIX\\MicrosoftCorporationII.WinAppRuntime…",
+    "version": "8000.675.1142.0"
+  },
+  {
+    "name": "WinAppRuntime.Singleton",
+    "id": "MSIX\\MicrosoftCorporationII.WinAppRuntime…",
+    "version": "8000.675.1142.0"
+  },
+  {
+    "name": "Windows Web Experience Pack",
+    "id": "MSIX\\MicrosoftWindows.Client.WebExperienc…",
+    "version": "525.31002.150.0"
+  },
+  {
+    "name": "Cross Device Experience Host",
+    "id": "MSIX\\MicrosoftWindows.CrossDevice_0.25112…",
+    "version": "0.25112.60.0"
+  },
+  {
+    "name": "Speech Pack - English (United States)",
+    "id": "MSIX\\MicrosoftWindows.Speech.en-US.1_1.0.…",
+    "version": "1.0.24.0"
+  },
+  {
+    "name": "NVIDIA Control Panel",
+    "id": "MSIX\\NVIDIACorp.NVIDIAControlPanel_8.1.96…",
+    "version": "8.1.969.0"
+  },
+  {
+    "name": "Realtek Audio Control",
+    "id": "MSIX\\RealtekSemiconductorCorp.RealtekAudi…",
+    "version": "1.53.373.0"
+  },
+  {
+    "name": "Local AI Manager for Microsoft 365",
+    "id": "MSIX\\aimgr_0.20.34.0_x64__8wekyb3d8bbwe",
+    "version": "0.20.34.0"
+  }
+]

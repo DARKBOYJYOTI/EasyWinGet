@@ -1,8 +1,8 @@
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [string]$AppName,
     
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [string]$PackageId
 )
 
@@ -46,12 +46,14 @@ if ($PackageId -like "MSIX\*" -or $PackageId -like "MSIX\\*" -or $PackageId -lik
         Write-Host ""
         Write-Host "Successfully uninstalled"
         exit 0
-    } catch {
+    }
+    catch {
         Write-Host "Error during uninstall: $_"
         exit 1
     }
     
-} else {
+}
+else {
     # Traditional Win32 app - use registry uninstall string
     Write-Host "Searching for '$AppName' in Windows registry..."
     
@@ -63,8 +65,8 @@ if ($PackageId -like "MSIX\*" -or $PackageId -like "MSIX\\*" -or $PackageId -lik
     )
     
     $apps = Get-ItemProperty $paths -ErrorAction SilentlyContinue | 
-        Where-Object { $_.DisplayName -like "*$AppName*" } |
-        Sort-Object DisplayName
+    Where-Object { $_.DisplayName -like "*$AppName*" } |
+    Sort-Object DisplayName
     
     if ($apps.Count -eq 0) {
         Write-Host "Error: No application matching '$AppName' found in registry"
@@ -94,16 +96,18 @@ if ($PackageId -like "MSIX\*" -or $PackageId -like "MSIX\\*" -or $PackageId -lik
         # Handle quoted executable paths
         if ($uninstallCmd -match '^"([^"]+)"(.*)$') {
             $exe = $matches[1]
-            $args = $matches[2].Trim()
+            $uArgs = $matches[2].Trim()
             
-            Write-Host "Executing: $exe $args"
+            Write-Host "Executing: $exe $uArgs"
             
-            if ($args) {
-                Start-Process -FilePath $exe -ArgumentList $args -Wait
-            } else {
+            if ($uArgs) {
+                Start-Process -FilePath $exe -ArgumentList $uArgs -Wait
+            }
+            else {
                 Start-Process -FilePath $exe -Wait
             }
-        } else {
+        }
+        else {
             # Direct execution (no quotes)
             Write-Host "Executing: $uninstallCmd"
             Invoke-Expression "& $uninstallCmd"
@@ -112,7 +116,8 @@ if ($PackageId -like "MSIX\*" -or $PackageId -like "MSIX\\*" -or $PackageId -lik
         Write-Host ""
         Write-Host "Successfully uninstalled"
         exit 0
-    } catch {
+    }
+    catch {
         Write-Host "Error during uninstall: $_"
         exit 1
     }

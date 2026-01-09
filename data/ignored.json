@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "Enigma.VirtualBox",
+    "name": "Enigma Virtual Box"
+  },
+  {
+    "id": "Anysphere.Cursor",
+    "name": "Cursor (User)"
+  }
+]
