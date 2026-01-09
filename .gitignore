@@ -5,7 +5,7 @@ package-lock.json
 # Application Cache (local data)
 gui/cache/
 utils/cache/
-data/
+#data/
 downloads/
 jobs/
 *.json.bak
