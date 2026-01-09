@@ -6,6 +6,7 @@ package-lock.json
 gui/cache/
 utils/cache/
 data/
+downloads/
 *.json.bak
 
 # Logs and temporary files

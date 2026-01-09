@@ -1,5 +1,6 @@
 @echo off
 setlocal
+cd /d "%~dp0"
 echo ==================================================
 echo          EasyWinGet - Installer
 echo ==================================================
@@ -13,56 +14,66 @@ IF %ERRORLEVEL% NEQ 0 (
     exit
 )
 
-:: ============================================
-:: Check Node.js
-:: ============================================
+echo [*] Checking Node.js installation...
 node -v >nul 2>&1
 IF %ERRORLEVEL% NEQ 0 (
-    echo [!] Node.js not installed
+    echo [!] Node.js not found.
     
     IF EXIST "offline-packages\node-installer.msi" (
-        echo [*] Installing Node.js - this may take 2-3 minutes...
+        echo [*] Installing Node.js from offline package...
         msiexec /i "offline-packages\node-installer.msi" /qn /norestart
-        echo [OK] Node.js installed!
+        if %ERRORLEVEL% EQU 0 (
+            echo [OK] Node.js installed successfully!
+        ) ELSE (
+            echo [ERROR] Failed to install Node.js!
+            pause
+            exit /b 1
+        )
     ) ELSE (
-        echo [ERROR] Node.js installer not found!
-        echo Please download: https://nodejs.org
+        echo [ERROR] Node.js installer not found in offline-packages!
         pause
         exit /b 1
     )
 ) ELSE (
-    echo [OK] Node.js is installed
-)
-
-:: ============================================
-:: Check Dependencies
-:: ============================================
-IF NOT EXIST "node_modules\" (
-    echo [!] Installing packages...
-    
-    IF EXIST "offline-packages\express-5.2.1.tgz" (
-        echo [*] Installing from offline packages...
-        call npm install offline-packages\express-5.2.1.tgz offline-packages\cors-2.8.5.tgz offline-packages\node-pty-1.1.0.tgz 2>nul
-    ) ELSE (
-        echo [*] Installing from npm...
-        call npm install 2>nul
-    )
+    echo [OK] Node.js is already installed.
 )
 
 echo [*] Stopping existing server instances...
 powershell -Command "Get-NetTCPConnection -LocalPort 8080 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess | ForEach-Object { Stop-Process -Id $_ -Force }" >nul 2>&1
 timeout /t 2 /nobreak >nul
 
-echo [*] Creating C:\EasyWinGet...
+echo [*] Preparing Installation Directory (C:\EasyWinGet)...
 if not exist "C:\EasyWinGet" mkdir "C:\EasyWinGet"
 
-echo [*] Copying files (this may take a moment)...
+:: Clean C:\EasyWinGet EXCEPT downloads folder
+echo [*] Cleaning old files (Preserving Downloads)...
+powershell -Command "Get-ChildItem -Path 'C:\EasyWinGet' -Exclude 'downloads' | Remove-Item -Recurse -Force"
+
+echo [*] Copying new files...
 xcopy /E /I /Y /Q "%~dp0*" "C:\EasyWinGet\"
 if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to copy files!
     pause
     exit
 )
+echo [OK] Files copied successfully.
+
+:: Switch to install directory
+cd /d "C:\EasyWinGet"
+
+echo [*] Checking/Installing dependencies...
+IF NOT EXIST "node_modules\" (
+    echo [!] node_modules not found. Installing...
+    
+    IF EXIST "offline-packages\express-5.2.1.tgz" (
+        echo [*] Installing from offline packages: express, cors, node-pty...
+        call npm install offline-packages\express-5.2.1.tgz offline-packages\cors-2.8.5.tgz offline-packages\node-pty-1.1.0.tgz 2>nul
+    ) ELSE (
+        echo [!] Offline packages not found. Trying online install...
+        call npm install 2>nul
+    )
+)
+echo [OK] Dependencies ready.
 
 echo [*] Creating Shortcuts...
 set "TARGET_SCRIPT=C:\EasyWinGet\utils\start_server_hidden.vbs"
@@ -105,4 +116,7 @@ echo [OK] Installation Complete!
 echo You can now open "EasyWinGet" from your Desktop.
 echo ==================================================
 echo.
-pause
+echo Launching EasyWinGet...
+timeout /t 2 /nobreak >nul
+start "" wscript.exe utils\start_server_hidden.vbs
+exit
